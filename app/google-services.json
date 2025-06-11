@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "814360847993",
+    "project_id": "fir-app-dc863",
+    "storage_bucket": "fir-app-dc863.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:814360847993:android:eb052b8cc968903d1316a8",
+        "android_client_info": {
+          "package_name": "com.example.funciona"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDr8E8t2pOTIA75T84os6seMox3ASuf-wo"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
