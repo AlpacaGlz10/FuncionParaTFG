@@ -17,6 +17,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavController
+import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
@@ -28,25 +29,48 @@ import com.example.tsgapp.AjustesPersonalizados
 import com.example.tsgapp.ECuenta
 import com.example.tsgapp.Favoritos
 import com.example.tsgapp.principal
+import com.google.firebase.auth.FirebaseAuth
+import com.google.firebase.auth.ktx.auth
+import com.google.firebase.ktx.Firebase
 
 
 class MainActivity : ComponentActivity() {
+    private lateinit var navHostController: NavHostController
+    private lateinit var auth: FirebaseAuth
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        auth = Firebase.auth
         ThemeState.loadTheme(this)
         TamañoLetra.loadFont(this)
         setContent {
-            TSGAppTheme {
-                Surface {
-                    AppNavigation()
+            val navController = rememberNavController()
+            LaunchedEffect(Unit) {
+                if (auth.currentUser == null){
+                    navController.navigate("welcome"){
+                        popUpTo(0)
+                    }
                 }
             }
+            TSGAppTheme {
+                Surface {
+                    AppNavigation(navController)
+                }
+            }
+        }
+    }
+
+    override fun onStart() {
+        super.onStart()
+        val currentUser = auth.currentUser
+        if (currentUser == null) {
+            navHostController.navigate("welcome")
         }
     }
 }
 
 @Composable
-fun AppNavigation() {
+fun AppNavigation(navController1: NavHostController) {
     val navController = rememberNavController()
     Scaffold(
         modifier = Modifier.navigationBarsPadding(),
@@ -63,10 +87,11 @@ fun AppNavigation() {
             composable("ajustes") { Ajustes(navController) }
             composable("personalizacion") { AjustesPersonalizados() }
             composable("eliminar_cuenta") { ECuenta() }
-            composable("cuenta") { VentanaCuenta() }
+            composable("cuenta") { VentanaCuenta(Firebase.auth) }
         }
     }
 }
+
 
 @Composable
 fun Ajustes(navController: NavController) {

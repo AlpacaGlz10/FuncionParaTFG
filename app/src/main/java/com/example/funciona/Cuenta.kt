@@ -35,21 +35,23 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import com.example.funciona.ui.theme.TamañoLetra
-import com.google.android.gms.tasks.Task
-import com.google.firebase.auth.AuthResult
 import com.google.firebase.auth.FirebaseAuth
 
 class Cuenta : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        /*
+        cosas nuevas que he añadido
+         */
+        val auth = FirebaseAuth.getInstance()
         setContent {
-            VentanaCuenta()
+            VentanaCuenta(auth)
         }
     }
 }
 
 @Composable
-fun VentanaCuenta() {
+fun VentanaCuenta(auth: FirebaseAuth) {
     var text1 by rememberSaveable { mutableStateOf("") }
     var text2 by rememberSaveable { mutableStateOf("") }
 

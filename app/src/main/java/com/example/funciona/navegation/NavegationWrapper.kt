@@ -21,14 +21,14 @@ fun NavegationWrapper(navHostController: NavHostController, auth: FirebaseAuth){
                 navigateToSignUp = {navHostController.navigate("signUp")}
             )
         }
-        composable("signUp"){
-            SignUpScreen(auth)
-        }
         composable("logIn") {
             LoginScreen(auth){ navHostController.navigate("Home")}
         }
+        composable("signUp"){
+            SignUpScreen(auth)
+        }
         composable("VentanaCuenta") {
-            VentanaCuenta()
+            VentanaCuenta(auth)
         }
 
     }
