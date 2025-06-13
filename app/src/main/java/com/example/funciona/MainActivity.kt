@@ -21,6 +21,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.example.funciona.navegation.NavegationWrapper
 import com.example.funciona.ui.theme.ProductsViewModel
 import com.example.funciona.ui.theme.TSGAppTheme
 import com.example.funciona.ui.theme.TamañoLetra
@@ -29,6 +30,7 @@ import com.example.tsgapp.AjustesPersonalizados
 import com.example.tsgapp.ECuenta
 import com.example.tsgapp.Favoritos
 import com.example.tsgapp.principal
+import com.google.firebase.FirebaseApp
 import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.ktx.auth
 import com.google.firebase.ktx.Firebase
@@ -40,26 +42,17 @@ class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        FirebaseApp.initializeApp(this)
         auth = Firebase.auth
         ThemeState.loadTheme(this)
         TamañoLetra.loadFont(this)
+
         setContent {
-            val navController = rememberNavController()
-            LaunchedEffect(Unit) {
-                if (auth.currentUser == null){
-                    navController.navigate("welcome"){
-                        popUpTo(0)
-                    }
-                }
-            }
             TSGAppTheme {
-                Surface {
-                    AppNavigation(navController)
-                }
+                NavegationWrapper(auth)
             }
         }
     }
-
     override fun onStart() {
         super.onStart()
         val currentUser = auth.currentUser

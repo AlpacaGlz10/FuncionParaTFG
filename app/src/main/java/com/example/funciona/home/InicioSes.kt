@@ -87,7 +87,7 @@ fun InicioSes( navigateToLogin:() -> Unit ={}, navigateToSignUp: () -> Unit = {}
 
         ) {
             Text(
-                "Sign Up",
+                "Iniciar secion",
                 color = backgrowi2,
                 fontWeight = FontWeight.Bold
             )
@@ -99,7 +99,7 @@ fun InicioSes( navigateToLogin:() -> Unit ={}, navigateToSignUp: () -> Unit = {}
             "Google"
         )
         Text(
-            text = "logn In",
+            text = "Registrase",
             color = Color.White,
             modifier = Modifier.padding(10.dp)
                 .clickable{navigateToSignUp()},
